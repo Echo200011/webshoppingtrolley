@@ -1,0 +1,36 @@
+
+type Query{
+    #查出所有商品
+    spus:[Spu]
+    spu(id:Int):Spu
+}
+
+type Spu{
+    #商品id
+    id:ID!
+    #商品名称
+    name:String!
+    #商品价格×1000以后的结果
+    price:Int!
+    #商品优惠价格×1000以后的结果
+    discount:Int
+    #商品种类
+    category:String!
+    #商品编码
+    code:String!
+    #商品参加的活动
+    promotions:[Promotion]
+}
+
+type Promotion{
+    #活动id
+    id:ID!
+    #活动名称
+    name:String!
+    #活动规则
+    detail:Detail
+}
+
+type Detail{
+    id:Int
+}
