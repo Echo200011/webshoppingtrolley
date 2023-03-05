@@ -19,6 +19,7 @@ public class TestResolver implements GraphQLQueryResolver {
   private PromotionService promotionService;
 
   public Spu spu(Integer id) {
+    Spu spu = spuService.findById(id);
     return spuService.findById(id);
   }
 
@@ -27,6 +28,8 @@ public class TestResolver implements GraphQLQueryResolver {
   }
 
   public Promotion promotion(Integer id) {
-    return promotionService.promotion(id);
+    return promotionService.findById(id);
   }
+
+
 }

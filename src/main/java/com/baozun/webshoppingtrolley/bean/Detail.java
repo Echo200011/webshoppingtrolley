@@ -6,5 +6,7 @@ import lombok.Data;
 @Data
 public class Detail implements Serializable {
 
-  private Integer id;
+  private String condition;
+
+  private Integer value;
 }

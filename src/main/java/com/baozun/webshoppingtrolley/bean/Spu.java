@@ -14,10 +14,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "spu")
 @Data
+@NoArgsConstructor
 public class Spu {
 
   @Id
@@ -40,10 +42,11 @@ public class Spu {
   @Column(name = "spu_code")
   private String code;
 
+
   @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
   @JoinTable(name = "spu_promotion_mapping", joinColumns = {
       @JoinColumn(name = "spu_id")
-  }, inverseJoinColumns = {@JoinColumn(name = "id")})
+  }, inverseJoinColumns = {@JoinColumn(name = "promotion_id")})
   private List<Promotion> promotions;
 
 }

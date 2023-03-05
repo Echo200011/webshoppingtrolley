@@ -1,26 +1,30 @@
 package com.baozun.webshoppingtrolley.AttributeConverter;
 
-import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.JSON;
 import com.baozun.webshoppingtrolley.bean.Detail;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.AttributeConverter;
-import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
-public class DetailConverter implements AttributeConverter<Detail,String> {
+public class DetailConverter implements AttributeConverter<List<Detail>, String> {
 
   @Override
-  public String convertToDatabaseColumn(Detail attribute) {
-    if (ObjectUtils.isEmpty(attribute)) {
-     return  "";
+  public String convertToDatabaseColumn(List<Detail> attribute) {
+    if (CollectionUtils.isEmpty(attribute)) {
+      return "null";
     }
-    return JSONObject.toJSONString(attribute);
+    return JSON.toJSONString(attribute);
   }
 
+
   @Override
-  public Detail convertToEntityAttribute(String dbData) {
-      if (StringUtils.isEmpty(dbData)){
-        return new Detail();
-      }
-        return JSONObject.parseObject(dbData, Detail.class);
+  @SuppressWarnings("unchecked")
+  public List<Detail> convertToEntityAttribute(String dbData) {
+    if (StringUtils.equals("null", dbData)) {
+      return new ArrayList<>();
+    }
+    return JSON.parseArray(dbData,Detail.class);
   }
 }

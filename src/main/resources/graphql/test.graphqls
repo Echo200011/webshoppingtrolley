@@ -1,3 +1,6 @@
+schema {
+    query: Query
+}
 
 type Query{
     #查出所有商品
@@ -28,9 +31,11 @@ type Promotion{
     #活动名称
     name:String!
     #活动规则
-    detail:Detail
+    details:[Detail]
 }
 
 type Detail{
-    id:Int
+    condition:String
+
+    value:Int
 }
