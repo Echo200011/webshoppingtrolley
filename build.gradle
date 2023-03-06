@@ -1,69 +1,44 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '2.7.10-SNAPSHOT'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'java'
+    id 'org.springframework.boot' version '2.7.10-SNAPSHOT'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
 group = 'com.baozun'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
-}
-
 repositories {
-	mavenCentral()
-	maven { url 'https://repo.spring.io/milestone' }
-	maven { url 'https://repo.spring.io/snapshot' }
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
 }
 
 dependencies {
-	// https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
-	implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+    compileOnly(
+            ['org.projectlombok:lombok'],
+            ['com.graphql-java-kickstart:graphql-java-tools:13.0.2']
+    )
+    implementation(
+            [group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'],
+            [group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'],
+            ['org.flywaydb:flyway-mysql:9.15.1'],
+            ['org.flywaydb:flyway-core:9.15.1'],
+            ['com.graphql-java-kickstart:graphql-spring-boot-starter:11.0.0'],
+            ['com.graphql-java-kickstart:graphiql-spring-boot-starter:11.1.0'],
+            ['com.mysql:mysql-connector-j:8.0.32'],
+            ['org.springframework.boot:spring-boot-starter-data-jpa'],
+            ['org.springframework.boot:spring-boot-starter-web']
+    )
 
-	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
-	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
-	// https://mvnrepository.com/artifact/com.alibaba.fastjson2/fastjson2
-	implementation 'com.alibaba.fastjson2:fastjson2:2.0.23'
+    annotationProcessor 'org.projectlombok:lombok'
 
-	// https://mvnrepository.com/artifact/com.vladmihalcea/hibernate-types-52
-	implementation 'com.vladmihalcea:hibernate-types-52:2.20.0'
-
-	// https://mvnrepository.com/artifact/org.flywaydb/flyway-mysql
-	implementation 'org.flywaydb:flyway-mysql:9.15.1'
-
-	// https://mvnrepository.com/artifact/org.flywaydb/flyway-core
-	implementation 'org.flywaydb:flyway-core:9.15.1'
-
-// https://mvnrepository.com/artifact/com.graphql-java-kickstart/graphql-spring-boot-starter
-	implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:11.0.0'
-
-// https://mvnrepository.com/artifact/com.graphql-java-kickstart/graphiql-spring-boot-starter
-	implementation 'com.graphql-java-kickstart:graphiql-spring-boot-starter:11.1.0'
-
-
-	compileOnly 'com.graphql-java-kickstart:graphql-java-tools:13.0.2'
-
-	// https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2
-	implementation 'org.apache.commons:commons-dbcp2:2.9.0'
-
-	// https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
-	implementation 'com.mysql:mysql-connector-j:8.0.32'
-
-	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
-
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
 

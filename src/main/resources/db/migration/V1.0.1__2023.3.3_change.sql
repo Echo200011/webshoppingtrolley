@@ -1,1 +1,0 @@
-ALTER table  web_shopping_trolley.promotion change promotion_detail promotion_detail json not null comment '{"price":10,"discount":2}; {"spuId":1,"song":2}'

@@ -1,6 +1,5 @@
 package com.baozun.webshoppingtrolley.service;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.baozun.webshoppingtrolley.bean.Spu;
 import com.baozun.webshoppingtrolley.mapper.SpuRepository;
@@ -23,14 +22,12 @@ class SpuServiceTest {
 
   @Test
   void saveSpuAndPromotions() {
-    /*Spu spu = new Spu();
+    Spu spu = new Spu();
     spu.setName("sdasd");
     spu.setCode("dsda11333333");
     spu.setPrice(10);
     spu.setDiscount(8);
     spu.setCategory("1");
-    spuService.saveSpuAndPromotions(spu,3);*/
-
-    spuRepository.deleteById(1);
+    spuService.saveSpuAndPromotions(spu,1);
   }
 }

@@ -31,11 +31,10 @@ type Promotion{
     #活动名称
     name:String!
     #活动规则
-    details:[Detail]
+    details:[Detail]!
 }
 
 type Detail{
     condition:String
-
     value:Int
 }

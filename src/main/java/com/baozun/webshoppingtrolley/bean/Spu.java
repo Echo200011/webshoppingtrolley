@@ -27,19 +27,19 @@ public class Spu {
   @Column(name = "id")
   private Integer id;
 
-  @Column(name = "spu_name")
+  @Column(name = "name")
   private String name;
 
-  @Column(name = "spu_price")
+  @Column(name = "price")
   private Integer price;
 
-  @Column(name = "spu_discount")
+  @Column(name = "discount")
   private Integer discount;
 
-  @Column(name = "spu_category")
+  @Column(name = "category")
   private String category;
 
-  @Column(name = "spu_code")
+  @Column(name = "code")
   private String code;
 
 

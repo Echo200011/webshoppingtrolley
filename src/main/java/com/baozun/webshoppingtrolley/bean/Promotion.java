@@ -25,11 +25,11 @@ public class Promotion {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(name = "promotion_name")
+  @Column(name = "name")
   private String name;
 
   @Convert(converter = DetailConverter.class)
-  @Column(name = "promotion_detail")
+  @Column(name = "detail")
   private List<Detail> details = new ArrayList<>();
 
   public void setDetails(Detail... details) {

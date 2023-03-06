@@ -1,13 +1,11 @@
 package com.baozun.webshoppingtrolley.service;
 
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
 import com.baozun.webshoppingtrolley.bean.Detail;
 import com.baozun.webshoppingtrolley.bean.Promotion;
-import com.baozun.webshoppingtrolley.mapper.PromotionRepository;
-import java.util.Arrays;
-import java.util.Collections;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class PromotionServiceTest {
 
   @Autowired
-  private PromotionRepository promotionService;
+  private PromotionService promotionService;
 
   @Test
   void save() {
@@ -31,9 +29,35 @@ class PromotionServiceTest {
     detail2.setValue(2);
     promotion.setDetails(detail);
     promotion.setDetails(detail2);
+  }
 
-   Promotion promotion1 = promotionService.findById(21).get();
+  @Test
+  void testSave() throws JsonProcessingException {
+    Promotion promotion = new Promotion();
+    promotion.setName("dsad");
+    Detail detail = new Detail();
+    detail.setCondition("test");
+    detail.setValue(1);
+    Detail detail2 = new Detail();
+    detail2.setCondition("test2");
+    detail2.setValue(2);
+    promotion.setDetails(detail);
+    promotion.setDetails(detail2);
+    promotion.setName("sdasd");
+    ObjectMapper objectMapper = new ObjectMapper();
+    String test;
+    try {
+       test = objectMapper.writeValueAsString(promotion.getDetails());
+    } catch (JsonProcessingException e) {
+      throw new RuntimeException(e);
+    }
+    TypeReference<List<Detail>> typeReference = new TypeReference<List<Detail>>() {
+    };
+   List<Detail> details = objectMapper.readValue(test,typeReference);
+    List<Promotion> promotion1 = promotionService.save(promotion);
+  }
 
-
+  @Test
+  void delete() {
   }
 }

@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TestResolver implements GraphQLQueryResolver {
+public class QueryResolver implements GraphQLQueryResolver {
 
   @Autowired
   private SpuService spuService;
@@ -19,7 +19,6 @@ public class TestResolver implements GraphQLQueryResolver {
   private PromotionService promotionService;
 
   public Spu spu(Integer id) {
-    Spu spu = spuService.findById(id);
     return spuService.findById(id);
   }
 

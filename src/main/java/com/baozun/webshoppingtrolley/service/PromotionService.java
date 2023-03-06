@@ -2,6 +2,7 @@ package com.baozun.webshoppingtrolley.service;
 
 import com.baozun.webshoppingtrolley.bean.Promotion;
 import com.baozun.webshoppingtrolley.mapper.PromotionRepository;
+import java.util.Arrays;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,19 @@ public class PromotionService {
   }
 
   @Transactional
-  public Promotion save(Promotion promotion) {
-    return promotionRepository.saveAndFlush(promotion);
+  public List<Promotion> save(Promotion... promotion) {
+    if (promotion.length == 0) {
+      return null;
+    }
+    return promotionRepository.saveAllAndFlush(Arrays.asList(promotion));
   }
 
   @Transactional
-  public List<Promotion> saveAll(List<Promotion> promotions) {
-    return promotionRepository.saveAllAndFlush(promotions);
+  public void delete(Integer... id) {
+    if (id.length == 0) {
+      return;
+    }
+    Arrays.stream(id).forEach(i -> promotionRepository.deleteById(i));
   }
 
 
