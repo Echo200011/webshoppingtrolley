@@ -1,0 +1,104 @@
+schema {
+    query: Query
+}
+#查询商品
+type Query{
+    #查出所有商品
+    spuList(
+        #第几页
+        pageNumber:Int=1
+        #页面显示个数
+        pageSize:Int=10
+        #根据商品名称查询
+        name:String
+        #根据类型查询
+        category:String
+        #根据价格查询
+        #最小价格
+        minPrice:Int=0
+        #最大价格
+        maxPrice:Int
+        #根据参与的活动查询
+        promotion:String
+    ):SpuPageData!
+}
+#返回的数据
+type SpuPageData{
+    #页码
+    pageNumber:Int!
+    #页面显示数据个数
+    pageSize:Int!
+    #数据总量
+    total:Int!
+    #符合的商品列表
+    spuList:[Spu!]
+}
+#商品
+type Spu{
+    #商品id
+    id:ID!
+    #商品名称
+    name:String!
+    #商品价格×1000以后的结果
+    price:Int!
+    #商品优惠价格×1000以后的结果
+    discount:Int
+    #商品种类
+    category:String!
+    #商品编码
+    code:String!
+    #商品参加的活动
+    promotions :[Promotion!]
+}
+#活动
+type Promotion{
+    #活动id
+    id:ID!
+    #活动名称
+    name:String!
+    #商品种类
+    type:PromotionType!
+    #活动规则
+    details:PromotionDetail!
+}
+#满减活动规则
+type Discount implements PromotionDetail{
+    #满多少钱
+    full:Int!
+    #减多少钱
+    discount:Int!
+    #活动类型
+    type:PromotionType!
+}
+#买赠活动规则
+type Gift implements PromotionDetail{
+    #那些商品参与买会赠送商品
+    spu:[Spu!]!
+    #哪些商品被用来赠送
+    giftSpu:[Spu!]!
+    #活动类型
+    type:PromotionType!
+}
+#捆绑销售活动规则
+type Bundling implements PromotionDetail{
+    #哪些商品参加捆绑销售活动
+    spu:[Spu!]!
+    #打几折
+    discount:Int!
+    #活动类型
+    type:PromotionType!
+}
+#活动规则
+interface PromotionDetail{
+    #活动类型
+    type:PromotionType!
+}
+#活动类型
+enum PromotionType{
+    #满减
+    DISCOUNT
+    #买赠
+    GIFT
+    #捆绑销售
+    BUNDLING
+}
