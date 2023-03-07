@@ -1,6 +1,6 @@
-package com.baozun.webshoppingtrolley.mapper;
+package com.baozun.shoppingcart.dao;
 
-import com.baozun.webshoppingtrolley.bean.SpuPromotionMapping;
+import com.baozun.shoppingcart.dao.model.SpuPromotionMapping;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SpuPromotionMappingRepository extends JpaRepository<SpuPromotionMapping,Integer> {

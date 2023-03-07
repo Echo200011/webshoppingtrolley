@@ -1,8 +1,8 @@
-package com.baozun.webshoppingtrolley.service;
+package com.baozun.shoppingcart.service;
 
 
-import com.baozun.webshoppingtrolley.bean.SpuPromotionMapping;
-import com.baozun.webshoppingtrolley.mapper.SpuPromotionMappingRepository;
+import com.baozun.shoppingcart.dao.model.SpuPromotionMapping;
+import com.baozun.shoppingcart.dao.SpuPromotionMappingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

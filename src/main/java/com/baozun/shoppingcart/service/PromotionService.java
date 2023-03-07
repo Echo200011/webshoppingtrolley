@@ -1,7 +1,7 @@
-package com.baozun.webshoppingtrolley.service;
+package com.baozun.shoppingcart.service;
 
-import com.baozun.webshoppingtrolley.bean.Promotion;
-import com.baozun.webshoppingtrolley.mapper.PromotionRepository;
+import com.baozun.shoppingcart.dao.model.Promotion;
+import com.baozun.shoppingcart.dao.PromotionRepository;
 import java.util.Arrays;
 import java.util.List;
 import javax.transaction.Transactional;

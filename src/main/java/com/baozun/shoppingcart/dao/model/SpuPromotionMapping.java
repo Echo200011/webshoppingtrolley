@@ -1,4 +1,4 @@
-package com.baozun.webshoppingtrolley.bean;
+package com.baozun.shoppingcart.dao.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

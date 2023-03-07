@@ -1,7 +1,7 @@
-package com.baozun.webshoppingtrolley.service;
+package com.baozun.shoppingcart.service;
 
-import com.baozun.webshoppingtrolley.bean.Spu;
-import com.baozun.webshoppingtrolley.mapper.SpuRepository;
+import com.baozun.shoppingcart.dao.model.Spu;
+import com.baozun.shoppingcart.dao.SpuRepository;
 import java.util.Arrays;
 import java.util.List;
 import javax.transaction.Transactional;

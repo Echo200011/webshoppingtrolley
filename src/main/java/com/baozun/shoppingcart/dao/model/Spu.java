@@ -1,4 +1,4 @@
-package com.baozun.webshoppingtrolley.bean;
+package com.baozun.shoppingcart.dao.model;
 
 
 import java.util.List;
@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,9 @@ public class Spu {
   @Column(name = "id")
   private Integer id;
 
+  @Column(name = "code")
+  private String code;
+
   @Column(name = "name")
   private String name;
 
@@ -36,12 +40,12 @@ public class Spu {
   @Column(name = "discount")
   private Integer discount;
 
-  @Column(name = "category")
-  private String category;
+  @Column(name = "category_id")
+  private Integer categoryId;
 
-  @Column(name = "code")
-  private String code;
-
+  @OneToOne
+  @JoinColumn(name = "id")
+  private SpuCategories spuCategory;
 
   @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
   @JoinTable(name = "spu_promotion_mapping", joinColumns = {

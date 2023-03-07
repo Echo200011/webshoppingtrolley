@@ -1,3 +1,4 @@
+/*
 package com.baozun.webshoppingtrolley.resolver;
 
 import com.baozun.webshoppingtrolley.bean.Promotion;
@@ -32,3 +33,4 @@ public class QueryResolver implements GraphQLQueryResolver {
 
 
 }
+*/
