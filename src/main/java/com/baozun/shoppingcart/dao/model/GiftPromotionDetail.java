@@ -7,4 +7,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class GiftPromotionDetail extends AbstractPromotionDetail {
 
+  public GiftPromotionDetail() {
+    setType(PromotionTypeEnum.GIFT);
+  }
 }

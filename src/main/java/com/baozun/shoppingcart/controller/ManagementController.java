@@ -25,8 +25,7 @@ public class ManagementController {
   private SpuService spuService;
 
   @PostMapping("/discountPromotion")
-  public List<Promotion> savePromotion(@RequestBody JsonNode promotionData) {
-    List<Promotion> promotions = promotionService.convertPromotionData(promotionData);
+  public List<Promotion> savePromotion(@RequestBody List<Promotion> promotions) {
     return promotionService.save(promotions);
   }
 
