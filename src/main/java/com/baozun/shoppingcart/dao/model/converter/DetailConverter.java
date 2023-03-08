@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.persistence.AttributeConverter;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 
 public class DetailConverter implements AttributeConverter<AbstractPromotionDetail, String> {
@@ -27,6 +28,9 @@ public class DetailConverter implements AttributeConverter<AbstractPromotionDeta
 
   @Override
   public AbstractPromotionDetail convertToEntityAttribute(String dbData) {
+    if (StringUtils.equals("{}",dbData)){
+      return null;
+    }
     try {
       JsonNode jsonNode = objectMapper.readValue(dbData, JsonNode.class);
       PromotionTypeEnum promotionTypeEnum = PromotionTypeEnum.valueOf(jsonNode.get("type").asText());

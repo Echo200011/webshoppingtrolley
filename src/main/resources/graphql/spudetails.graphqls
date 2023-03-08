@@ -1,7 +1,7 @@
 #schema {
 #    query: Query
 #}
-##查询商品
+#查询商品
 #type Query{
 #    #查出所有商品
 #    spuList(

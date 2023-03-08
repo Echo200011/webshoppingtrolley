@@ -31,8 +31,8 @@ create table spu_categories
 
 create table spu_promotion_mapping
 (
-    id           int        not null primary key auto_increment comment '主键',
-    spu_id       int        not null comment 'spu的id',
-    promotion_id int unique not null comment 'promotion的id',
+    id           int not null primary key auto_increment comment '主键',
+    spu_id       int not null comment 'spu的id',
+    promotion_id int not null comment 'promotion的id',
     index `idx_spu_id_promotion_id` (spu_id, promotion_id)
 );

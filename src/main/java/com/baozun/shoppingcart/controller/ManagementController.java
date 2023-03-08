@@ -2,12 +2,12 @@ package com.baozun.shoppingcart.controller;
 
 import com.baozun.shoppingcart.dao.model.Promotion;
 import com.baozun.shoppingcart.dao.model.Spu;
+import com.baozun.shoppingcart.dao.model.SpuQueryParameter;
 import com.baozun.shoppingcart.service.PromotionService;
 import com.baozun.shoppingcart.service.SpuService;
-import com.fasterxml.jackson.databind.JsonNode;
-import java.io.IOException;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,15 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/management")
+@RequiredArgsConstructor
 public class ManagementController {
 
-  @Autowired
-  private PromotionService promotionService;
+  private final PromotionService promotionService;
 
-  @Autowired
-  private SpuService spuService;
+  private final SpuService spuService;
 
-  @PostMapping("/discountPromotion")
+  @PostMapping("/promotion")
   public List<Promotion> savePromotion(@RequestBody List<Promotion> promotions) {
     return promotionService.save(promotions);
   }
@@ -34,9 +33,17 @@ public class ManagementController {
     return promotionService.findById(id);
   }
 
-  @GetMapping("/spu")
+
+/*  @GetMapping("/spu")
   public Spu findSpuById(Integer id) {
     return spuService.findById(id);
+  }*/
+
+  @GetMapping("/spu")
+  public Page<Spu> findSpuAll(SpuQueryParameter parameter ,Integer pageNumber, Integer pageSize) {
+    return spuService.findAll(parameter,pageNumber,pageSize);
   }
+
+
 
 }

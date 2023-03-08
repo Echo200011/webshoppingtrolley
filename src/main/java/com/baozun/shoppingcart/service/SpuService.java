@@ -2,25 +2,35 @@ package com.baozun.shoppingcart.service;
 
 import com.baozun.shoppingcart.dao.model.Spu;
 import com.baozun.shoppingcart.dao.SpuRepository;
+import com.baozun.shoppingcart.dao.model.SpuQueryParameter;
 import java.util.Arrays;
 import java.util.List;
 import javax.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class SpuService {
 
-  @Autowired
-  private SpuRepository spuRepository;
+  private final SpuRepository spuRepository;
 
-  @Autowired
-  private SpuPromotionMappingService spuPromotionMappingService;
+  private final SpuPromotionMappingService spuPromotionMappingService;
 
 
-  public List<Spu> findAll() {
-    return spuRepository.findAll();
+  public Page<Spu> findAll(Integer pageNumber, Integer pageSize) {
+    Pageable pageable = PageRequest.of(pageNumber, pageSize);
+    return spuRepository.findAll(pageable);
+  }
+
+  public Page<Spu> findAll(SpuQueryParameter parameter, Integer pageNumber, Integer pageSize) {
+
+    Pageable pageable = PageRequest.of(pageNumber, pageSize);
+    return spuRepository.findAll(parameter,pageable);
   }
 
   public Spu findById(Integer id) {
@@ -28,8 +38,8 @@ public class SpuService {
   }
 
   @Transactional
-  public List<Spu> saveAll(List<Spu> spus) {
-    return spuRepository.saveAll(spus);
+  public List<Spu> saveAll(List<Spu> spuList) {
+    return spuRepository.saveAll(spuList);
   }
 
   @Transactional

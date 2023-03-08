@@ -3,14 +3,14 @@ package com.baozun.shoppingcart.service;
 
 import com.baozun.shoppingcart.dao.model.SpuPromotionMapping;
 import com.baozun.shoppingcart.dao.SpuPromotionMappingRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class SpuPromotionMappingService {
 
-  @Autowired
-  private SpuPromotionMappingRepository spuPromotionMappingRepository;
+  private final SpuPromotionMappingRepository spuPromotionMappingRepository;
 
   public SpuPromotionMapping save(Integer spuId, Integer promotionID) {
     try {
