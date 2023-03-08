@@ -1,14 +1,13 @@
 package com.baozun.shoppingcart.controller;
 
-import com.baozun.shoppingcart.dao.model.BundlingPromotionDetail;
-import com.baozun.shoppingcart.dao.model.GiftPromotionDetail;
 import com.baozun.shoppingcart.dao.model.Promotion;
 import com.baozun.shoppingcart.dao.model.Spu;
 import com.baozun.shoppingcart.service.PromotionService;
 import com.baozun.shoppingcart.service.SpuService;
+import com.fasterxml.jackson.databind.JsonNode;
+import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,28 +25,10 @@ public class ManagementController {
   private SpuService spuService;
 
   @PostMapping("/discountPromotion")
-  public List<Promotion> savePromotion(@RequestBody List<Promotion> promotion
-     ) {
-/*    promotion.setDetail(detail);
-,@RequestBody("detail") DiscountPromotionDetail detail
-    return promotionService.save(promotion);*/
-    return null;
+  public List<Promotion> savePromotion(@RequestBody JsonNode promotionData) {
+    List<Promotion> promotions = promotionService.convertPromotionData(promotionData);
+    return promotionService.save(promotions);
   }
-
-  @PostMapping("/giftPromotion")
-  public List<Promotion> savePromotion(Promotion promotion,
-      @Param("detail") GiftPromotionDetail detail) {
-    promotion.setDetail(detail);
-    return promotionService.save(promotion);
-  }
-
-  @PostMapping("/bundlingPromotion")
-  public List<Promotion> savePromotion(Promotion promotion,
-      @Param("detail") BundlingPromotionDetail detail) {
-    promotion.setDetail(detail);
-    return promotionService.save(promotion);
-  }
-
 
   @GetMapping("/promotion")
   public Promotion findPromotionById(Integer id) {

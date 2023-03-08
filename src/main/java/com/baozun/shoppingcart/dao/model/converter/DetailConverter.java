@@ -30,8 +30,7 @@ public class DetailConverter implements AttributeConverter<AbstractPromotionDeta
     try {
       JsonNode jsonNode = objectMapper.readValue(dbData, JsonNode.class);
       PromotionTypeEnum promotionTypeEnum = PromotionTypeEnum.valueOf(jsonNode.get("type").asText());
-      return objectMapper.readValue(String.valueOf(jsonNode),
-          promotionTypeEnum.getClz());
+      return objectMapper.readValue(String.valueOf(jsonNode), promotionTypeEnum.getClz());
     } catch (JsonProcessingException e) {
       throw new RuntimeException(e);
     }

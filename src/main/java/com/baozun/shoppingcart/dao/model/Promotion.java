@@ -3,6 +3,7 @@ package com.baozun.shoppingcart.dao.model;
 import com.baozun.shoppingcart.dao.model.converter.DetailConverter;
 import javax.persistence.Column;
 import javax.persistence.Convert;
+import javax.persistence.Converter;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
