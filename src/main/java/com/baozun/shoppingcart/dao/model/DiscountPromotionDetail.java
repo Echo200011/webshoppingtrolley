@@ -12,7 +12,13 @@ import lombok.EqualsAndHashCode;
 @JsonTypeName("discount")
 public class DiscountPromotionDetail extends AbstractPromotionDetail {
 
-  private String test;
+/*  full:Int!
+      #减多少钱
+  discount:Int!*/
+
+  private Integer full;
+
+  private Integer discount;
 
   public DiscountPromotionDetail(){
     setType(PromotionTypeEnum.DISCOUNT);

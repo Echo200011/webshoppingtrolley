@@ -1,6 +1,7 @@
 package com.baozun.shoppingcart.dao.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 public class SpuQueryParameter {

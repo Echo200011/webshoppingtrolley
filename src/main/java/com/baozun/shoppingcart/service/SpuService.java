@@ -28,7 +28,6 @@ public class SpuService {
   }
 
   public Page<Spu> findAll(SpuQueryParameter parameter, Integer pageNumber, Integer pageSize) {
-
     Pageable pageable = PageRequest.of(pageNumber, pageSize);
     return spuRepository.findAll(parameter,pageable);
   }
