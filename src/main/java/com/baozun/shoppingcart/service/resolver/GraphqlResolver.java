@@ -2,7 +2,7 @@ package com.baozun.shoppingcart.service.resolver;
 
 import com.baozun.shoppingcart.dao.model.Spu;
 import com.baozun.shoppingcart.dao.model.SpuPageData;
-import com.baozun.shoppingcart.dao.model.SpuQueryParameter;
+import com.baozun.shoppingcart.controller.vo.request.SpuQueryRequest;
 import com.baozun.shoppingcart.service.SpuService;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import lombok.RequiredArgsConstructor;
@@ -16,9 +16,9 @@ public class GraphqlResolver implements GraphQLQueryResolver {
 
   private final SpuService spuService;
 
-  public SpuPageData spuList(Integer pageNumber, Integer pageSize, SpuQueryParameter parameter) {
-    Page<Spu> page = spuService.findAll(parameter, pageNumber, pageSize);
-    return new SpuPageData(pageNumber, pageSize, page.getTotalElements(), page.getContent());
+  public SpuPageData spuList(SpuQueryRequest parameter) {
+    Page<Spu> spuList = spuService.findAllByParameter(parameter);
+    return new SpuPageData(parameter.getPageNumber(), parameter.getPageSize(), spuList.getTotalElements(), spuList.getContent());
   }
 
 }

@@ -5,10 +5,6 @@ schema {
 type Query{
     #查出所有商品
     spuList(
-        #第几页
-        pageNumber:Int=1
-        #页面显示个数
-        pageSize:Int=10
         #多条件查询
         parameter:SpuQueryParameter
     ):SpuPageData!
@@ -59,6 +55,24 @@ type DiscountPromotionDetail implements AbstractPromotionDetail{
     #活动类型
     type:PromotionType!
 }
+#买赠活动规则
+type GiftPromotionDetail implements AbstractPromotionDetail{
+    #那些商品参与买会赠送商品
+    spuList:[Spu!]!
+    #哪些商品被用来赠送
+    giftSpuList:[Spu!]!
+    #活动类型
+    type:PromotionType!
+}
+#捆绑销售活动规则
+type BundlingPromotionDetail implements AbstractPromotionDetail{
+    #哪些商品参加捆绑销售活动
+    spuList:[Spu!]!
+    #打几折
+    discount:Int!
+    #活动类型
+    type:PromotionType!
+}
 #活动规则
 interface AbstractPromotionDetail {
     #活动类型
@@ -74,13 +88,17 @@ enum PromotionType{
     BUNDLING
 }
 input SpuQueryParameter{
+    #第几页
+    pageNumber:Int=0
+    #页面显示个数
+    pageSize:Int=10
     #根据商品名称查询
     name:String
     #根据类型查询
     categoryName:String
     #根据价格查询
     #最小价格
-    minPrice:Int
+    minPrice:Int=0
     #最大价格
     maxPrice:Int
     #根据参与的活动查询

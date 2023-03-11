@@ -14,7 +14,8 @@ import lombok.NoArgsConstructor;
 )
 @JsonSubTypes({
     @JsonSubTypes.Type(value = DiscountPromotionDetail.class, name = "DISCOUNT"),
-    @JsonSubTypes.Type(value = GiftPromotionDetail.class, name = "GIFT")
+    @JsonSubTypes.Type(value = GiftPromotionDetail.class, name = "GIFT"),
+    @JsonSubTypes.Type(value = BundlingPromotionDetail.class,name = "BUNDLING")
 })
 public abstract class AbstractPromotionDetail {
 

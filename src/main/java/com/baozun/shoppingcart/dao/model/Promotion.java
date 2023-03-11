@@ -3,7 +3,6 @@ package com.baozun.shoppingcart.dao.model;
 import com.baozun.shoppingcart.dao.model.converter.DetailConverter;
 import javax.persistence.Column;
 import javax.persistence.Convert;
-import javax.persistence.Converter;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,10 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Data;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Data
 @Table(name = "promotion")
+@SQLDelete(sql = "update promotion set is_delete = 1 where id = ?")
+@Where(clause = "is_delete = 0")
 public class Promotion {
 
   @Id
@@ -35,5 +38,8 @@ public class Promotion {
 
   @Convert(converter = DetailConverter.class)
   private AbstractPromotionDetail detail;
+
+  @Column(name = "is_delete")
+  private boolean delete ;
 
 }

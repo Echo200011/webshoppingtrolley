@@ -1,6 +1,7 @@
 package com.baozun.shoppingcart.dao.model;
 
 
+import com.baozun.shoppingcart.controller.vo.request.SpuStatusEnum;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,16 +12,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Table(name = "spu")
 @Data
 @NoArgsConstructor
+@SQLDelete(sql = "update spu  set is_delete = 1  where id = ?")
+@Where(clause = "is_delete = 0")
 public class Spu {
 
   @Id
@@ -40,17 +45,27 @@ public class Spu {
   @Column(name = "discount")
   private Integer discount;
 
+  @Column(name = "inventory")
+  private Integer inventory;
+
+  @Column(name = "status")
+  private SpuStatusEnum status;
+
   @Column(name = "category_id")
   private Integer categoryId;
 
-  @OneToOne
-  @JoinColumn(name = "id")
-  private SpuCategories spuCategory;
+  @Column(name = "is_delete")
+  private boolean delete;
 
   @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
   @JoinTable(name = "spu_promotion_mapping", joinColumns = {
       @JoinColumn(name = "spu_id")
   }, inverseJoinColumns = {@JoinColumn(name = "promotion_id")})
   private List<Promotion> promotions;
+
+  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+  @JoinColumn(name = "category_id", insertable = false, updatable = false)
+  private SpuCategories spuCategory;
+
 
 }
