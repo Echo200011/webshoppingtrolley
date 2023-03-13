@@ -1,7 +1,6 @@
 package com.baozun.shoppingcart.dao;
 
 
-import com.baozun.shoppingcart.controller.vo.request.SpuStatusEnum;
 import com.baozun.shoppingcart.dao.model.Spu;
 import com.baozun.shoppingcart.controller.vo.request.SpuQueryRequest;
 import org.springframework.data.domain.Page;
