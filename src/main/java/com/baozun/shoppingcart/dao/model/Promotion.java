@@ -6,11 +6,14 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.Data;
+import java.util.List;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -40,6 +43,6 @@ public class Promotion {
   private AbstractPromotionDetail detail;
 
   @Column(name = "is_delete")
-  private boolean delete ;
+  private boolean delete;
 
 }

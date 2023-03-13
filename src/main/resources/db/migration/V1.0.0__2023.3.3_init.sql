@@ -6,7 +6,7 @@ create table spu
     price         int                                                            not null comment '商品价格×1000后的价格',
     discount      int                                                            null comment '优惠后的标价×1000后的价格',
     category_id   int                                                            not null comment '商品种类',
-    inventory     int                                  default 0                 not null comment '库存',
+    stock         int                                  default 0                 not null comment '库存',
     `create_time` datetime                             default CURRENT_TIMESTAMP not null comment '创建时间',
     `update_time` datetime ON UPDATE CURRENT_TIMESTAMP                           null comment '更新时间',
     `status`      enum ('NEW','ON_SHELVES','SOLD_OUT') default 'NEW'             not null comment '商品状态',

@@ -52,9 +52,4 @@ public class SpuManagementController {
     spuService.deleteSpuById(spuId);
   }
 
-  //单个修改
-  @PutMapping
-  public List<Spu> updateSpuAll(@RequestBody List<Spu> spuList) {
-    return spuService.updateAll(spuList);
-  }
 }

@@ -8,8 +8,6 @@ import com.baozun.shoppingcart.controller.vo.response.SpuResponse;
 import com.baozun.shoppingcart.dao.model.Spu;
 import com.baozun.shoppingcart.dao.SpuRepository;
 import com.baozun.shoppingcart.controller.vo.request.SpuQueryRequest;
-import java.util.List;
-import java.util.Optional;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
@@ -43,41 +41,48 @@ public class SpuService {
     return SpuResponse.toSpuResponse(spu);
   }
 
-  @Transactional
   public SpuResponse saveSpu(SpuRequest spuRequest) {
     return SpuResponse.toSpuResponse(spuRepository.save(spuRequest.toSpu()));
   }
 
-  public SpuResponse test(UpdateSpuRequest updateSpuRequest) {
-    if (ObjectUtils.isEmpty(updateSpuRequest.getId())) {
-      return null;
-    }
-    Spu spu = spuRepository.findById(updateSpuRequest.getId()).orElse(null);
-    if (ObjectUtils.isEmpty(spu)) {
-      return null;
-    }
-    if (ObjectUtils.isEmpty(updateSpuRequest.getStatus())) {
-      //TODO
-    }
-    if (updateSpuRequest.getStatus().equals(SpuStatusEnum.ON_SHELVES) && spu.getStatus().equals(SpuStatusEnum.NEW)
-        && spu.getInventory() < 0) {
-      //TODO
-    }
-    if (updateSpuRequest.getStatus().equals(SpuStatusEnum.SOLD_OUT) && !(spu.getStatus()
-        .equals(SpuStatusEnum.ON_SHELVES))) {
-      //TODO
-    }
-    return null;
+  @Transactional
+  public SpuResponse updateSpu(UpdateSpuRequest updateSpuRequest) {
+    Spu spu = spuRepository.saveAndFlush(updateSpuRequest.toSpu());
+    return SpuResponse.toSpuResponse(spu);
   }
+
+  @Transactional
+  public void onShelves(Integer spuId) {
+    Spu spu = spuRepository.findById(spuId).orElseThrow(() -> new IllegalArgumentException("商品不存在"));
+    if (spu.getStatus().equals(SpuStatusEnum.ON_SHELVES)){
+      throw new IllegalArgumentException("商品已上架");
+    }
+    if (spu.getStock() <= 0) {
+      throw new IllegalArgumentException("库存必须大于0");
+    }
+    if (spuRepository.onShelves(spuId) <= 0) {
+      throw new IllegalArgumentException("上架失败");
+    }
+  }
+
+  @Transactional
+  public void soldOut(Integer spuId) {
+    Spu spu = spuRepository.findById(spuId).orElseThrow(() -> new IllegalArgumentException("商品不存在"));
+    if (spu.getStatus().equals(SpuStatusEnum.SOLD_OUT)){
+      throw new IllegalArgumentException("商品已上架");
+    }
+    if (!spu.getStatus().equals(SpuStatusEnum.ON_SHELVES)) {
+      throw new IllegalArgumentException("商品必须先上架");
+    }
+    if (spuRepository.soldOut(spuId) <= 0) {
+      throw new IllegalArgumentException("下架失败");
+    }
+  }
+
 
   @Transactional
   public void deleteSpuById(Integer spuId) {
     spuRepository.deleteById(spuId);
-  }
-
-  @Transactional
-  public List<Spu> updateAll(List<Spu> spuList) {
-    return spuRepository.saveAllAndFlush(spuList);
   }
 
 }

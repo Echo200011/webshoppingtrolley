@@ -1,6 +1,7 @@
 package com.baozun.shoppingcart.dao;
 
 
+import com.baozun.shoppingcart.controller.vo.request.SpuStatusEnum;
 import com.baozun.shoppingcart.dao.model.Spu;
 import com.baozun.shoppingcart.controller.vo.request.SpuQueryRequest;
 import org.springframework.data.domain.Page;
@@ -26,5 +27,9 @@ public interface SpuRepository extends JpaRepository<Spu, Integer> {
       + "and if(:#{#parameter.maxPrice}!=0,t1.price between :#{#parameter.minPrice} and :#{#parameter.maxPrice} ,1=1)", nativeQuery = true)
   Page<Spu> findAll(@Param("parameter") SpuQueryRequest parameter, Pageable pageable);
 
+  @Query(value = "update spu set status='ON_SHELVES'where id =?1  and stock > 0", nativeQuery = true)
+  Integer onShelves(Integer spuId);
 
+  @Query(value = "update spu set status='SOLD_OUT' where id =?1  and status = 'ON_SHELVES'", nativeQuery = true)
+  Integer soldOut(Integer spuId);
 }

@@ -1,11 +1,13 @@
 package com.baozun.shoppingcart.controller.vo.request;
 
 import com.baozun.shoppingcart.dao.model.Spu;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
 public class UpdateSpuRequest {
 
+  @NotNull
   private Integer id;
 
   private String name;
@@ -16,9 +18,8 @@ public class UpdateSpuRequest {
 
   private Integer categoryId;
 
-  private Integer inventory;
+  private Integer stock;
 
-  private SpuStatusEnum status;
 
   public Spu toSpu() {
     Spu spu = new Spu();
@@ -27,7 +28,7 @@ public class UpdateSpuRequest {
     spu.setPrice(this.price);
     spu.setDiscount(this.discount);
     spu.setCategoryId(this.categoryId);
-    spu.setInventory(this.inventory);
+    spu.setStock(this.stock);
     return spu;
   }
 }

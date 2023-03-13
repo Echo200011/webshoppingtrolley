@@ -6,14 +6,16 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -45,10 +47,11 @@ public class Spu {
   @Column(name = "discount")
   private Integer discount;
 
-  @Column(name = "inventory")
-  private Integer inventory;
+  @Column(name = "stock")
+  private Integer stock;
 
   @Column(name = "status")
+  @Enumerated(EnumType.STRING)
   private SpuStatusEnum status;
 
   @Column(name = "category_id")
@@ -57,13 +60,15 @@ public class Spu {
   @Column(name = "is_delete")
   private boolean delete;
 
-  @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-  @JoinTable(name = "spu_promotion_mapping", joinColumns = {
-      @JoinColumn(name = "spu_id")
-  }, inverseJoinColumns = {@JoinColumn(name = "promotion_id")})
+  @ManyToMany(cascade = CascadeType.PERSIST)
+  @JoinTable(
+      name = "spu_promotion_mapping",
+      joinColumns = {@JoinColumn(name = "spu_id")},
+      inverseJoinColumns = {@JoinColumn(name = "promotion_id")}
+  )
   private List<Promotion> promotions;
 
-  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+  @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
   @JoinColumn(name = "category_id", insertable = false, updatable = false)
   private SpuCategories spuCategory;
 
