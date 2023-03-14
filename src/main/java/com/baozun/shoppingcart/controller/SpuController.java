@@ -13,6 +13,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,7 +39,7 @@ public class SpuController {
       @ApiImplicitParam(paramType = "query", name = "pageSize", value = "页面大小", required = true, dataTypeClass = Integer.class)
   })
   @GetMapping
-  public Result<List<SpuResponse>> findSpuAll(PageParameterRequest pageParameterRequest) {
+  public Result<List<SpuResponse>> findSpuAll(@Valid PageParameterRequest pageParameterRequest) {
     Page<Spu> spuList = spuService.findAll(pageParameterRequest);
     List<SpuResponse> spuResponses = SpuResponse.toSpuResponseList(spuList.getContent());
     return Result.success(spuResponses);
@@ -54,7 +56,7 @@ public class SpuController {
       @ApiImplicitParam(paramType = "query", name = "status", value = "商品状态", dataTypeClass = SpuStatusEnum.class),
   })
   @GetMapping("/findSpuAllByParameter")
-  public Result<List<SpuResponse>> findSpuAllByParameter(SpuQueryRequest parameter) {
+  public Result<List<SpuResponse>> findSpuAllByParameter(@Valid SpuQueryRequest parameter) {
     Page<Spu> spuList = spuService.findAllByParameter(parameter);
     List<SpuResponse> spuResponses = SpuResponse.toSpuResponseList(spuList.getContent());
     return Result.success(spuResponses);
@@ -80,7 +82,7 @@ public class SpuController {
       @ApiImplicitParam(paramType = "query", name = "categoryId", value = "种类id", required = true, dataTypeClass = Integer.class),
   })
   @PostMapping
-  public Result<Integer> saveSpu(@RequestBody SpuRequest spuRequest) {
+  public Result<Integer> saveSpu(@Valid @RequestBody SpuRequest spuRequest) {
     Spu spu = spuService.saveSpu(spuRequest);
     return Result.success(spu.getId());
   }
@@ -95,10 +97,23 @@ public class SpuController {
       @ApiImplicitParam(paramType = "query", name = "stock", value = "库存", dataTypeClass = Integer.class)
   })
   @PatchMapping
-  public Result<Integer> updateSpu(UpdateSpuRequest updateSpuRequest) {
+  public Result<Integer> updateSpu(@Valid UpdateSpuRequest updateSpuRequest) {
     Spu spu = spuService.updateSpu(updateSpuRequest);
     return Result.success(spu.getId());
   }
+
+  @PatchMapping("/onShelves/{spuId}")
+  public Result<Integer> onShelves(@PathVariable("spuId") Integer spuId) {
+    spuService.onShelves(spuId);
+    return Result.success(spuId);
+  }
+
+  @PatchMapping("/soldOut/{spuId}")
+  public Result<Integer> soldOut(@PathVariable("spuId") @Valid @PositiveOrZero Integer spuId) {
+    spuService.soldOut(spuId);
+    return Result.success(spuId);
+  }
+
 
   @DeleteMapping("/{spuId}")
   public void deleteSpuById(@PathVariable("spuId") Integer spuId) {

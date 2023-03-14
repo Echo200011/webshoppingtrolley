@@ -11,6 +11,11 @@ import com.baozun.shoppingcart.dao.SpuRepository;
 import com.baozun.shoppingcart.controller.vo.request.SpuQueryRequest;
 import com.baozun.shoppingcart.exception.AppException;
 import com.baozun.shoppingcart.exception.AppExceptionCodeMsg;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
@@ -19,6 +24,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 
@@ -46,9 +52,8 @@ public class SpuService {
     return spuRepository.findAll(parameter, pageable);
   }
 
-  public Spu findById(@NotNull(message = "不能为空") @PositiveOrZero(message = "不可为负") Integer spuId) {
-    Spu spu = findSpu(spuId);
-    return (ObjectUtils.isEmpty(spu)) ? null : spu;
+  public Spu findById(Integer spuId) {
+    return findSpu(spuId);
   }
 
   @Transactional
