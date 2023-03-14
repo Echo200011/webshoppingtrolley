@@ -1,5 +1,6 @@
-package com.baozun.shoppingcart.dao.model;
+package com.baozun.shoppingcart.controller.vo.response;
 
+import com.baozun.shoppingcart.dao.model.Spu;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;

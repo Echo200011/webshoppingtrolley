@@ -1,4 +1,4 @@
-package com.baozun.shoppingcart.controller.vo.request;
+package com.baozun.shoppingcart.dao.model;
 
 public enum SpuStatusEnum {
   NEW,

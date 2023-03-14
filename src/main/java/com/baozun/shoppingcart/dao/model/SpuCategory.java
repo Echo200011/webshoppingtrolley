@@ -19,7 +19,7 @@ import org.hibernate.annotations.Where;
 @Data
 @SQLDelete(sql = "update spu_categories set is_delete = 1 where id = ?")
 @Where(clause = "is_delete = 0")
-public class SpuCategories {
+public class SpuCategory {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,5 +37,5 @@ public class SpuCategories {
 
   @OneToMany(fetch = FetchType.LAZY)
   @JoinColumn(name = "parent_id")
-  private List<SpuCategories> childCategories;
+  private List<SpuCategory> childCategories;
 }

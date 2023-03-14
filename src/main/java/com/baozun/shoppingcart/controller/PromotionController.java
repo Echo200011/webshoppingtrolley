@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/promotions")
 @RequiredArgsConstructor
-public class PromotionManagementController {
+public class PromotionController {
 
   private final PromotionService promotionService;
 

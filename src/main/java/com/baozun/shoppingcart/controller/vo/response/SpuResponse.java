@@ -1,7 +1,6 @@
 package com.baozun.shoppingcart.controller.vo.response;
 
 import com.baozun.shoppingcart.dao.model.Spu;
-import com.baozun.shoppingcart.dao.model.SpuCategories;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
@@ -23,7 +22,7 @@ public class SpuResponse {
 
   private Integer discount;
 
-  private SpuCategories spuCategory;
+  private String spuCategoryName;
 
   public static List<SpuResponse> toSpuResponseList(List<Spu> spuList) {
     return spuList.stream()
@@ -33,6 +32,6 @@ public class SpuResponse {
 
   public static SpuResponse toSpuResponse(Spu spu) {
     return new SpuResponse(spu.getId(), spu.getCode(), spu.getName(), spu.getPrice(), spu.getDiscount(),
-        spu.getSpuCategory());
+        spu.getSpuCategory().getName());
   }
 }

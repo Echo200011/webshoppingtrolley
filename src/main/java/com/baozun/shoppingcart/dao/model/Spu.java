@@ -1,7 +1,6 @@
 package com.baozun.shoppingcart.dao.model;
 
 
-import com.baozun.shoppingcart.controller.vo.request.SpuStatusEnum;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,17 +41,17 @@ public class Spu {
   private String name;
 
   @Column(name = "price")
-  private Integer price;
+  private Integer price = 0;
 
   @Column(name = "discount")
-  private Integer discount;
+  private Integer discount = 0;
 
   @Column(name = "stock")
-  private Integer stock;
+  private Integer stock = 0;
 
   @Column(name = "status")
   @Enumerated(EnumType.STRING)
-  private SpuStatusEnum status;
+  private SpuStatusEnum status = SpuStatusEnum.NEW;
 
   @Column(name = "category_id")
   private Integer categoryId;
@@ -68,9 +67,7 @@ public class Spu {
   )
   private List<Promotion> promotions;
 
-  @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+  @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinColumn(name = "category_id", insertable = false, updatable = false)
-  private SpuCategories spuCategory;
-
-
+  private SpuCategory spuCategory;
 }

@@ -10,6 +10,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
+        format_sql: true
         enable_lazy_load_no_trans: true
   graphql:
     schema:
@@ -17,6 +18,15 @@ spring:
   flyway:
     enabled: true
     encoding: utf-8
-    clean-disabled: true
-
-
+  mvc:
+    path match:
+      matching-strategy: ant_path_matcher
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
+    open-api:
+      enabled: true
+logging:
+  level:
+    org.hibernate.type.descriptor.sql.BasicBinder: trace

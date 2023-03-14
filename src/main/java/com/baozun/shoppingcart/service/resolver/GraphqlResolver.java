@@ -1,7 +1,7 @@
 package com.baozun.shoppingcart.service.resolver;
 
 import com.baozun.shoppingcart.dao.model.Spu;
-import com.baozun.shoppingcart.dao.model.SpuPageData;
+import com.baozun.shoppingcart.controller.vo.response.SpuPageData;
 import com.baozun.shoppingcart.controller.vo.request.SpuQueryRequest;
 import com.baozun.shoppingcart.service.SpuService;
 import graphql.kickstart.tools.GraphQLQueryResolver;
