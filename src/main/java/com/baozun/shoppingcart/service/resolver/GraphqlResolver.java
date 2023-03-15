@@ -17,7 +17,8 @@ public class GraphqlResolver implements GraphQLQueryResolver {
   private final SpuService spuService;
 
   public SpuPageData spuList(SpuQueryRequest parameter) {
-    Page<Spu> spuList = spuService.findAllByParameter(parameter);
+    Page<Spu> spuList = spuService.findAll(parameter);
+    //TODO
     return new SpuPageData(parameter.getPageNumber(), parameter.getPageSize(), spuList.getTotalElements(), spuList.getContent());
   }
 

@@ -1,7 +1,7 @@
 package com.baozun.shoppingcart.dao.model.converter;
 
 import com.baozun.shoppingcart.dao.model.AbstractPromotionDetail;
-import com.baozun.shoppingcart.dao.model.PromotionTypeEnum;
+import com.baozun.shoppingcart.dao.model.DetailTypeEnum;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,8 +33,8 @@ public class DetailConverter implements AttributeConverter<AbstractPromotionDeta
     }
     try {
       JsonNode jsonNode = objectMapper.readValue(dbData, JsonNode.class);
-      PromotionTypeEnum promotionTypeEnum = PromotionTypeEnum.valueOf(jsonNode.get("type").asText());
-      return objectMapper.readValue(String.valueOf(jsonNode), promotionTypeEnum.getClz());
+      DetailTypeEnum detailTypeEnum = DetailTypeEnum.valueOf(jsonNode.get("type").asText());
+      return objectMapper.readValue(String.valueOf(jsonNode), detailTypeEnum.getClz());
     } catch (JsonProcessingException e) {
       throw new RuntimeException(e);
     }

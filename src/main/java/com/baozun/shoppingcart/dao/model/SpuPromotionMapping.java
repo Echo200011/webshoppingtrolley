@@ -1,5 +1,7 @@
 package com.baozun.shoppingcart.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,6 +26,14 @@ public class SpuPromotionMapping {
 
   @Column(name = "promotion_id")
   private Integer promotionId;
+
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @Column(name = "create_time",insertable = false,updatable = false)
+  private LocalDateTime createTime;
+
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @Column(name = "update_time")
+  private LocalDateTime updateTime;
 
   public SpuPromotionMapping(Integer spuId, Integer promotionId) {
     this.spuId = spuId;

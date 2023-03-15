@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum PromotionTypeEnum {
+public enum DetailTypeEnum {
   DISCOUNT(DiscountPromotionDetail.class),
   GIFT(GiftPromotionDetail.class),
   BUNDLING(BundlingPromotionDetail.class);

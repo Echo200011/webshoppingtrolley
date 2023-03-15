@@ -17,5 +17,6 @@ public class SpuPageData {
 
   private long total;
 
+  //TODO 修改为SpuResponse
   private List<Spu> spuList;
 }

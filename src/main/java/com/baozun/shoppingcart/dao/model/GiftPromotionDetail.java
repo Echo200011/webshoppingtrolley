@@ -8,11 +8,10 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class GiftPromotionDetail extends AbstractPromotionDetail {
 
-  private List<Spu> spuList;
 
   private List<Spu> giftSpuList;
 
   public GiftPromotionDetail() {
-    setType(PromotionTypeEnum.GIFT);
+    setType(DetailTypeEnum.GIFT);
   }
 }

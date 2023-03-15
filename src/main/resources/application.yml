@@ -18,6 +18,10 @@ spring:
   flyway:
     enabled: true
     encoding: utf-8
+    validate-on-migrate: true
+    baseline-on-migrate: true
+    out-of-order: true
+    clean-on-validation-error: true
   mvc:
     path match:
       matching-strategy: ant_path_matcher

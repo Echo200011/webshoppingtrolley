@@ -29,7 +29,7 @@ type Spu{
     #商品价格×1000以后的结果
     price:Int!
     #商品优惠价格×1000以后的结果
-    discount:Int
+    bidPrice:Int
     #商品编码
     code:String!
     #商品参加的活动
@@ -57,8 +57,6 @@ type DiscountPromotionDetail implements AbstractPromotionDetail{
 }
 #买赠活动规则
 type GiftPromotionDetail implements AbstractPromotionDetail{
-    #那些商品参与买会赠送商品
-    spuList:[Spu!]!
     #哪些商品被用来赠送
     giftSpuList:[Spu!]!
     #活动类型
@@ -66,8 +64,6 @@ type GiftPromotionDetail implements AbstractPromotionDetail{
 }
 #捆绑销售活动规则
 type BundlingPromotionDetail implements AbstractPromotionDetail{
-    #哪些商品参加捆绑销售活动
-    spuList:[Spu!]!
     #打几折
     discount:Int!
     #活动类型

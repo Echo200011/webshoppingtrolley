@@ -1,6 +1,8 @@
 package com.baozun.shoppingcart.dao.model;
 
 import com.baozun.shoppingcart.dao.model.converter.DetailConverter;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -31,10 +33,18 @@ public class Promotion {
 
   @Enumerated(EnumType.STRING)
   @Column(name = "type")
-  private PromotionTypeEnum type;
+  private DetailTypeEnum type;
 
   @Column(name = "description")
   private String description;
+
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @Column(name = "create_time",insertable = false,updatable = false)
+  private LocalDateTime createTime;
+
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @Column(name = "update_time")
+  private LocalDateTime updateTime;
 
   @Convert(converter = DetailConverter.class)
   private AbstractPromotionDetail detail;

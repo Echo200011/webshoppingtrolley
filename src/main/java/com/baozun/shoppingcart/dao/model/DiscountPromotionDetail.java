@@ -13,6 +13,6 @@ public class DiscountPromotionDetail extends AbstractPromotionDetail {
   private Integer discount;
 
   public DiscountPromotionDetail() {
-    setType(PromotionTypeEnum.DISCOUNT);
+    setType(DetailTypeEnum.DISCOUNT);
   }
 }

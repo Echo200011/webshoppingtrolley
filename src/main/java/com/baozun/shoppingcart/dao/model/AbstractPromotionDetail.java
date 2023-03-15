@@ -19,5 +19,5 @@ import lombok.NoArgsConstructor;
 })
 public abstract class AbstractPromotionDetail {
 
-  private PromotionTypeEnum type;
+  private DetailTypeEnum type;
 }

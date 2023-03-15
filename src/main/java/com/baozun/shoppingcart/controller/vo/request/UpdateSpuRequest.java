@@ -16,7 +16,7 @@ public class UpdateSpuRequest {
   @PositiveOrZero(message = "价格最低为0元")
   private Integer price;
   @PositiveOrZero(message = "优惠价最低为0元")
-  private Integer discount;
+  private Integer bidPrice;
   @PositiveOrZero(message = "类别id至少为0，不可为负")
   private Integer categoryId;
   @PositiveOrZero(message = "库存数最少为0件")
@@ -30,8 +30,8 @@ public class UpdateSpuRequest {
     if (!ObjectUtils.isEmpty(price)) {
       spu.setPrice(this.price);
     }
-    if (!ObjectUtils.isEmpty(discount)) {
-      spu.setDiscount(this.discount);
+    if (!ObjectUtils.isEmpty(bidPrice)) {
+      spu.setBidPrice(this.bidPrice);
     }
     if (!ObjectUtils.isEmpty(categoryId)) {
       spu.setCategoryId(this.categoryId);

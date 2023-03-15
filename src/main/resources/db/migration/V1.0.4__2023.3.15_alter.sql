@@ -1,0 +1,1 @@
+alter table shopping_cart  add  `user_id` int not null comment '用户id'

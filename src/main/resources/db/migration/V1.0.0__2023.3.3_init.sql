@@ -4,7 +4,7 @@ create table spu
     `code`        varchar(255) unique                                            not null comment '商品编码',
     `name`        varchar(255)                                                   not null comment '商品名称',
     price         int                                                            not null comment '商品价格×1000后的价格',
-    discount      int                                                            null comment '优惠后的标价×1000后的价格',
+    bid_price      int                                                            null comment '优惠后的标价×1000后的价格',
     category_id   int                                                            not null comment '商品种类',
     stock         int                                  default 0                 not null comment '库存',
     `create_time` datetime                             default CURRENT_TIMESTAMP not null comment '创建时间',
@@ -14,11 +14,11 @@ create table spu
     index `idx_category_id` (category_id),
     index `idx_name` (name),
     index `idx_code` (code),
-    index `idx_discount` (discount),
+    index `idx_discount` (bid_price),
     index `idx_create_time` (create_time),
     index `idx_status` (status)
 );
-insert into spu(name, code, price, discount, category_id)
+insert into spu(name, code, price, bid_price, category_id)
 values ('test', 'test2023', 10000, 8000, 1);
 create table promotion
 (

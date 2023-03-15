@@ -1,8 +1,8 @@
 package com.baozun.shoppingcart.controller;
 
-import com.baozun.shoppingcart.controller.vo.request.PageParameterRequest;
 import com.baozun.shoppingcart.controller.vo.request.SpuRequest;
 import com.baozun.shoppingcart.controller.vo.request.UpdateSpuRequest;
+import com.baozun.shoppingcart.controller.vo.response.SpuDetailResponse;
 import com.baozun.shoppingcart.controller.vo.response.SpuResponse;
 import com.baozun.shoppingcart.dao.model.Spu;
 import com.baozun.shoppingcart.controller.vo.request.SpuQueryRequest;
@@ -12,7 +12,6 @@ import com.baozun.shoppingcart.service.SpuService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.PositiveOrZero;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,18 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class SpuController {
 
   private final SpuService spuService;
-
-  @ApiOperation(value = "查询所有商品", notes = "分页查询")
-  @ApiImplicitParams({
-      @ApiImplicitParam(paramType = "query", name = "pageNumber", value = "页码", required = true, dataTypeClass = Integer.class),
-      @ApiImplicitParam(paramType = "query", name = "pageSize", value = "页面大小", required = true, dataTypeClass = Integer.class)
-  })
-  @GetMapping
-  public Result<List<SpuResponse>> findSpuAll(@Valid PageParameterRequest pageParameterRequest) {
-    Page<Spu> spuList = spuService.findAll(pageParameterRequest);
-    List<SpuResponse> spuResponses = SpuResponse.toSpuResponseList(spuList.getContent());
-    return Result.success(spuResponses);
-  }
 
   @ApiOperation(value = "查询所有商品", notes = "根据条件分页查询")
   @ApiImplicitParams({
@@ -55,11 +41,10 @@ public class SpuController {
       @ApiImplicitParam(paramType = "query", name = "createTime", value = "创建时间"),
       @ApiImplicitParam(paramType = "query", name = "status", value = "商品状态", dataTypeClass = SpuStatusEnum.class),
   })
-  @GetMapping("/findSpuAllByParameter")
-  public Result<List<SpuResponse>> findSpuAllByParameter(@Valid SpuQueryRequest parameter) {
-    Page<Spu> spuList = spuService.findAllByParameter(parameter);
-    List<SpuResponse> spuResponses = SpuResponse.toSpuResponseList(spuList.getContent());
-    return Result.success(spuResponses);
+  @GetMapping()
+  public Result<Page<SpuResponse>> findSpuAll(@Valid SpuQueryRequest parameter) {
+    Page<Spu> spuList = spuService.findAll(parameter);
+    return Result.success(spuList.map(SpuResponse::toSpuResponse));
   }
 
   @ApiOperation(value = "查询商品", notes = "根据id查询")
@@ -67,10 +52,10 @@ public class SpuController {
       @ApiImplicitParam(paramType = "path", name = "spuId", value = "商品id", required = true, dataTypeClass = Integer.class)
   })
   @GetMapping("/{spuId}")
-  public Result<SpuResponse> findSpuById(@PathVariable("spuId") Integer spuId) {
+  public Result<SpuDetailResponse> findSpuById(@PathVariable("spuId") Integer spuId) {
     Spu spu = spuService.findById(spuId);
-    SpuResponse spuResponse = SpuResponse.toSpuResponse(spu);
-    return Result.success(spuResponse);
+    SpuDetailResponse spuDetailResponse = SpuDetailResponse.toSpuResponse(spu);
+    return Result.success(spuDetailResponse);
   }
 
   @ApiOperation(value = "新增商品", notes = "根据可传入属性新增")
@@ -82,7 +67,7 @@ public class SpuController {
       @ApiImplicitParam(paramType = "query", name = "categoryId", value = "种类id", required = true, dataTypeClass = Integer.class),
   })
   @PostMapping
-  public Result<Integer> saveSpu(@Valid @RequestBody SpuRequest spuRequest) {
+  public Result<Integer> saveSpu(@Valid SpuRequest spuRequest) {
     Spu spu = spuService.saveSpu(spuRequest);
     return Result.success(spu.getId());
   }
@@ -116,8 +101,9 @@ public class SpuController {
 
 
   @DeleteMapping("/{spuId}")
-  public void deleteSpuById(@PathVariable("spuId") Integer spuId) {
+  public Result<Integer> deleteSpuById(@PathVariable("spuId") Integer spuId) {
     spuService.deleteSpuById(spuId);
+    return Result.success(spuId);
   }
 
 }

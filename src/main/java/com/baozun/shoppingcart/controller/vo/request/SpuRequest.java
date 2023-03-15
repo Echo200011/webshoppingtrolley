@@ -15,7 +15,7 @@ public class SpuRequest {
   @PositiveOrZero(message = "价格最低为0元")
   private Integer price = 0;
   @PositiveOrZero(message = "优惠价最低为0元")
-  private Integer discount = 0;
+  private Integer bidPrice = 0;
   @NotNull(message = "商品种类不可为空")
   @PositiveOrZero(message = "类别id至少为0，不可为负")
   private Integer categoryId;
@@ -25,7 +25,7 @@ public class SpuRequest {
     spu.setCode(this.code);
     spu.setName(this.name);
     spu.setPrice(this.price);
-    spu.setDiscount(this.discount);
+    spu.setBidPrice(this.bidPrice);
     spu.setCategoryId(this.categoryId);
     return spu;
   }

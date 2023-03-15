@@ -1,6 +1,7 @@
 package com.baozun.shoppingcart.dao.model;
 
-
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -43,8 +44,8 @@ public class Spu {
   @Column(name = "price")
   private Integer price = 0;
 
-  @Column(name = "discount")
-  private Integer discount = 0;
+  @Column(name = "bid_price")
+  private Integer bidPrice = 0;
 
   @Column(name = "stock")
   private Integer stock = 0;
@@ -58,6 +59,14 @@ public class Spu {
 
   @Column(name = "is_delete")
   private boolean delete;
+
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @Column(name = "create_time",insertable = false,updatable = false)
+  private LocalDateTime createTime;
+
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @Column(name = "update_time")
+  private LocalDateTime updateTime;
 
   @ManyToMany(cascade = CascadeType.PERSIST)
   @JoinTable(

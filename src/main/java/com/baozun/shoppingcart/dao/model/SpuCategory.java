@@ -1,5 +1,7 @@
 package com.baozun.shoppingcart.dao.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,6 +36,14 @@ public class SpuCategory {
 
   @Column(name = "is_delete")
   private boolean delete;
+
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @Column(name = "create_time",insertable = false,updatable = false)
+  private LocalDateTime createTime;
+
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @Column(name = "update_time")
+  private LocalDateTime updateTime;
 
   @OneToMany(fetch = FetchType.LAZY)
   @JoinColumn(name = "parent_id")
