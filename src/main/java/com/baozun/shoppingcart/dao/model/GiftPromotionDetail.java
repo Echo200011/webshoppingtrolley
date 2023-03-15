@@ -12,6 +12,13 @@ public class GiftPromotionDetail extends AbstractPromotionDetail {
   private List<Spu> giftSpuList;
 
   public GiftPromotionDetail() {
+    setLevel(3);
     setType(DetailTypeEnum.GIFT);
+  }
+
+
+  @Override
+  public void calculatePrice(List<Spu> spuList) {
+
   }
 }
