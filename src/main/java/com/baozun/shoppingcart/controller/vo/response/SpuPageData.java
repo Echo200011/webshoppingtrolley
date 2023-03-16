@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+@Data()
 @AllArgsConstructor
 @NoArgsConstructor
 public class SpuPageData {
@@ -19,4 +19,9 @@ public class SpuPageData {
 
   //TODO 修改为SpuResponse
   private List<Spu> spuList;
+
+  public SpuPageData setTotal() {
+    this.total = 1;
+    return this;
+  }
 }

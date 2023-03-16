@@ -1,8 +1,8 @@
 package com.baozun.shoppingcart.controller.vo.request;
 
 import com.baozun.shoppingcart.dao.model.AbstractPromotionDetail;
-import com.baozun.shoppingcart.dao.model.Promotion;
 import com.baozun.shoppingcart.dao.model.DetailTypeEnum;
+import com.baozun.shoppingcart.dao.model.Promotion;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 

@@ -1,6 +1,7 @@
 package com.baozun.shoppingcart.dao.model;
 
 
+import com.baozun.shoppingcart.controller.vo.response.SpuData;
 import java.util.List;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -20,11 +21,18 @@ public class DiscountPromotionDetail extends AbstractPromotionDetail {
 
 
   @Override
-  public void calculatePrice(List<Spu> spuList) {
-    int sum = spuList.stream().mapToInt(Spu::getBidPrice).sum();
-    if (sum<full){
+  public void calculatePrice(List<SpuData> spuData) {
+    long sum = spuData.stream().mapToInt(SpuData::getPromotionPrice).sum();
+    if (sum < (full * 1000)) {
       return;
     }
-    spuList.forEach(spu -> spu.setBidPrice((full-discount)*spu.getBidPrice()/full));
+    long total = sum - (sum / (full*1000) * (discount*1000));
+    spuData.forEach(
+        spuResult -> spuResult.setPromotionPrice((setBidPrice(spuResult.getPromotionPrice(), sum, total)))
+    );
+  }
+
+  private int setBidPrice(int bidPrice, long sum, long total) {
+    return (int) ((total * bidPrice) / sum);
   }
 }

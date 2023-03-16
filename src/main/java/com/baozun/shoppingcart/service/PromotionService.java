@@ -3,8 +3,8 @@ package com.baozun.shoppingcart.service;
 import com.baozun.shoppingcart.controller.vo.request.PromotionQueryRequest;
 import com.baozun.shoppingcart.controller.vo.request.PromotionRequest;
 import com.baozun.shoppingcart.controller.vo.request.UpdatePromotionRequest;
-import com.baozun.shoppingcart.dao.model.Promotion;
 import com.baozun.shoppingcart.dao.PromotionRepository;
+import com.baozun.shoppingcart.dao.model.Promotion;
 import com.baozun.shoppingcart.exception.AppException;
 import com.baozun.shoppingcart.exception.AppExceptionCodeMsg;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class PromotionService {
 
   public Page<Promotion> findAll(PromotionQueryRequest parameter) {
     Page<Promotion> promotions = findPromotions(parameter);
-    if (CollectionUtils.isEmpty(promotions.getContent())){
+    if (CollectionUtils.isEmpty(promotions.getContent())) {
       throw new AppException(AppExceptionCodeMsg.PROMOTION_NOT_EXIST);
     }
     return findPromotions(parameter);

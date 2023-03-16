@@ -7,5 +7,5 @@ public class ShoppingCartRequest {
 
   private Integer spuId;
 
-  private Integer userId;
+  private Integer code;
 }

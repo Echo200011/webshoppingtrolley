@@ -27,7 +27,7 @@ public enum AppExceptionCodeMsg {
 
   SPU_MUST_ON_SHELVES(2033, "商品必须上架"),
 
-  PRICE_RANGE_ERROR(2034,"价格范围出错"),
+  PRICE_RANGE_ERROR(2034, "价格范围出错"),
 
   PROMOTION_NOT_EXIST(2035, "活动不存在");
 

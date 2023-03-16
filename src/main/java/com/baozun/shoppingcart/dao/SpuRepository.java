@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
-public interface SpuRepository extends JpaRepository<Spu, Integer> , JpaSpecificationExecutor<Spu> {
+public interface SpuRepository extends JpaRepository<Spu, Integer>, JpaSpecificationExecutor<Spu> {
 
   @Query(value = "select count(code) from spu where code=?1", nativeQuery = true)
   Integer findByCode(String code);

@@ -8,8 +8,50 @@ type Query{
         #多条件查询
         parameter:SpuQueryParameter
     ):SpuPageData!
+    shoppingCart(code:Int!):ShoppingCartData!
 }
-#返回的数据
+type Mutation{
+    #加入购物车
+    saveShoppingCartLine(request:ShoppingCartRequest!):Int!
+}
+#返回给前端的购物车行记录数据
+type ShoppingCartData{
+    #购物车编号
+    code:Int!
+    #购车优惠后返回给前端的该购物中所有spu数据
+    spuData:[SpuData]!
+}
+#购车优惠后返回给前端的spu数据
+type SpuData{
+    #商品id
+    id:ID!
+    #商品名称
+    name:String!
+    #赠品
+    giftSpu:SpuData
+    #商品原价
+    price:Int!
+    #商品活动价
+    promotionPrice:Int!
+    #商品个数
+    count:Int!
+    #商品类别名称
+    spuCategoryName:String!
+    #商品参与的活动
+    promotions:[Promotion]!
+}
+#购物车行记录
+type ShoppingCartLine{
+    #购物车主键
+    id:ID!
+    #购物车编码
+    code:Int!
+    #商品id
+    spuId:Int!
+    #购买件数
+    count:Int!
+}
+#返回的spu数据
 type SpuPageData{
     #页码
     pageNumber:Int!
@@ -24,16 +66,18 @@ type SpuPageData{
 type Spu{
     #商品id
     id:ID!
+    #商品编码
+    code:String!
     #商品名称
     name:String!
     #商品价格×1000以后的结果
     price:Int!
     #商品优惠价格×1000以后的结果
     bidPrice:Int
-    #商品编码
-    code:String!
+    #商品库存
+    stock:Int!
     #商品参加的活动
-    promotions :[Promotion!]
+    promotions :[Promotion]
 }
 #活动
 type Promotion{
@@ -58,7 +102,7 @@ type DiscountPromotionDetail implements AbstractPromotionDetail{
 #买赠活动规则
 type GiftPromotionDetail implements AbstractPromotionDetail{
     #哪些商品被用来赠送
-    giftSpuList:[Spu!]!
+    giftSpuIdList:[Int!]!
     #活动类型
     type:PromotionType!
 }
@@ -99,4 +143,8 @@ input SpuQueryParameter{
     maxPrice:Int
     #根据参与的活动查询
     promotionName:String
+}
+input ShoppingCartRequest{
+    spuId:Int!
+    code:Int!
 }

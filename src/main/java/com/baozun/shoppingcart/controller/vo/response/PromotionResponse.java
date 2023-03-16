@@ -1,7 +1,7 @@
 package com.baozun.shoppingcart.controller.vo.response;
 
-import com.baozun.shoppingcart.dao.model.Promotion;
 import com.baozun.shoppingcart.dao.model.DetailTypeEnum;
+import com.baozun.shoppingcart.dao.model.Promotion;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

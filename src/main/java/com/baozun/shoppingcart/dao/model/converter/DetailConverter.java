@@ -6,8 +6,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.persistence.AttributeConverter;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
 
 
 public class DetailConverter implements AttributeConverter<AbstractPromotionDetail, String> {
@@ -16,9 +14,6 @@ public class DetailConverter implements AttributeConverter<AbstractPromotionDeta
 
   @Override
   public String convertToDatabaseColumn(AbstractPromotionDetail detail) {
-    if (ObjectUtils.isEmpty(detail)) {
-      return "{}";
-    }
     try {
       return objectMapper.writeValueAsString(detail);
     } catch (JsonProcessingException e) {
@@ -28,9 +23,6 @@ public class DetailConverter implements AttributeConverter<AbstractPromotionDeta
 
   @Override
   public AbstractPromotionDetail convertToEntityAttribute(String dbData) {
-    if (StringUtils.equals("{}",dbData)){
-      return null;
-    }
     try {
       JsonNode jsonNode = objectMapper.readValue(dbData, JsonNode.class);
       DetailTypeEnum detailTypeEnum = DetailTypeEnum.valueOf(jsonNode.get("type").asText());

@@ -24,8 +24,8 @@ public class SpuQueryRequest extends PageParameterRequest {
   private String promotionName;
 
   @Past(message = "不能大于当前年月")
-  @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+  @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
   private LocalDateTime createTime;
 
   private SpuStatusEnum status;

@@ -61,7 +61,7 @@ public class Spu {
   private boolean delete;
 
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-  @Column(name = "create_time",insertable = false,updatable = false)
+  @Column(name = "create_time", insertable = false, updatable = false)
   private LocalDateTime createTime;
 
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

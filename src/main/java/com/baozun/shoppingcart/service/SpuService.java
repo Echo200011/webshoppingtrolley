@@ -1,13 +1,13 @@
 package com.baozun.shoppingcart.service;
 
+import com.baozun.shoppingcart.controller.vo.request.SpuQueryRequest;
 import com.baozun.shoppingcart.controller.vo.request.SpuRequest;
-import com.baozun.shoppingcart.dao.model.Promotion;
-import com.baozun.shoppingcart.dao.model.SpuStatusEnum;
 import com.baozun.shoppingcart.controller.vo.request.UpdateSpuRequest;
 import com.baozun.shoppingcart.dao.SpuCategoryRepository;
-import com.baozun.shoppingcart.dao.model.Spu;
 import com.baozun.shoppingcart.dao.SpuRepository;
-import com.baozun.shoppingcart.controller.vo.request.SpuQueryRequest;
+import com.baozun.shoppingcart.dao.model.Promotion;
+import com.baozun.shoppingcart.dao.model.Spu;
+import com.baozun.shoppingcart.dao.model.SpuStatusEnum;
 import com.baozun.shoppingcart.exception.AppException;
 import com.baozun.shoppingcart.exception.AppExceptionCodeMsg;
 import java.util.ArrayList;
@@ -132,7 +132,7 @@ public class SpuService {
       List<Predicate> predicates = new ArrayList<>();
       if (ObjectUtils.isNotEmpty(parameter.getName())) {
         Path<Object> name = root.get("name");
-        Predicate findByName = cb.like(name.as(String.class), parameter.getName());
+        Predicate findByName = cb.like(name.as(String.class),"%"+ parameter.getName()+"%");
         predicates.add(findByName);
       }
       if (ObjectUtils.isNotEmpty(parameter.getStatus())) {
